@@ -25,7 +25,8 @@
 
 (defn html->hiccup
   [read-dir write-dir]
-  (send-off watchers (fn [_] (watch-folder read-dir (file-converter convert-to-hiccup write-dir "clj")))))
+  (send-off watchers (fn [_]
+                       (watch-folder read-dir (file-converter convert-to-hiccup write-dir "clj")))))
 
 (defn hiccup->html
   [read-dir write-dir]
