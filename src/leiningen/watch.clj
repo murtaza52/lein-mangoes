@@ -16,9 +16,11 @@
       s)))
 
 (defn get-path
-  [path-object]
-  (let [path (-> path-object .toUri .toString (split #"file://") second)]
-    ()))
+  [path-object relative-folder-path]
+  (let [path (-> path-object .toUri .toString (split #"file://") second)
+        path-seq (split path #"/")
+        path-seq-with-folder (concat (butlast path-seq) [relative-folder-path (last path-seq)])]
+    (join "/" path-seq-with-folder)))
 
 (defn get-file-name
   [p]
@@ -32,4 +34,4 @@
   [p f]
   (let [path-object (apply path (path-seq p))]
     (doseq [ev (apply watch-seq path-object events-to-watch)]
-      (f [(ev :path) (get-file-name (ev :path))]))))
+      (f [(get-path (ev :path) p) (get-file-name (ev :path))]))))
