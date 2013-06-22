@@ -1,9 +1,10 @@
-(ns leiningen.file)
+(ns leiningen.file
+  (:require [clojure.java.io :as io]))
 
 (defn read-file
   [path]
-  (slurp path))
+  (slurp (io/file path)))
 
 (defn write-file
-  [path]
-  (spit path))
+  [path file]
+  (spit (apply io/file path) file))

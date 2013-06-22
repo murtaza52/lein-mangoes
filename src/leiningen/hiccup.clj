@@ -1,35 +1,27 @@
 (ns leiningen.hiccup
   (:require [hickory.core :refer [parse-fragment as-hiccup]]
             [hiccup.core :refer [html]]
-            [leiningen.watch :refer [watch-folder]]
-            [clojure.java.io :as io]))
+            [leiningen.transformer :refer [watch-and-transform]]
+            [leiningen.globals :refer [create-future run-action]]))
 
-(def watchers (agent nil))
-
-(defn convert-to-hiccup
+(defn string->hiccup
   [v]
   (->> (parse-fragment v)
        (map as-hiccup)
        first))
 
-(defn convert-to-html
+(defn string->html
   [s]
-  (html s))
+  (-> s read-string html))
 
-(defn file-converter
-  [f write-dir ext]
-  (fn [[file-path file-name]]
-    (->> file-path slurp f (spit (io/file write-dir (str file-name "." ext))))))
+(def html->hiccup (watch-and-transform string->hiccup "clj"))
 
-(def start-thread (fn [f] (send-off watchers (fn []))))
+(def hiccup->html (watch-and-transform string->html "html"))
 
-(defn html->hiccup
-  [read-dir write-dir]
-  (send-off watchers (fn [_]
-                       (watch-folder read-dir (file-converter convert-to-hiccup write-dir "clj")))))
+(defmethod run-action :html->hiccup
+  [[_ read-dir write-dir]]
+  (create-future html->hiccup read-dir write-dir))
 
-(defn hiccup->html
-  [read-dir write-dir]
-  (watch-folder read-dir (file-converter convert-to-html write-dir "html")))
-
-(def shut-threads #(shutdown-agents))
+(defmethod run-action :hiccup->html
+  [[_ read-dir write-dir]]
+  (create-future hiccup->html read-dir write-dir))
