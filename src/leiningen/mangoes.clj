@@ -1,8 +1,8 @@
-(ns leiningen.jeff
+(ns leiningen.mangoes
   (:require [leiningen.hiccup]
             [leiningen.globals :refer [run-action]]))
 
-(defn jeff
+(defn mangoes
   [{:keys [jeff]} & args]
   (doseq [v jeff]
     (run-action v))
