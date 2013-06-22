@@ -1,18 +1,12 @@
-# lein-jeff
+# lein-mangoes
 
-A Leiningen plugin to do many wonderful things.
+A build system for client ide development.
 
 ## Usage
 
-FIXME: Use this for user-level plugins:
+This plugin is not yet avalaible on clojars. Thus please clone the repo, and run `lein install` from the folder.
 
-Put `[lein-jeff "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your
-`:user` profile, or if you are on Leiningen 1.x do `lein plugin install
-lein-jeff 0.1.0-SNAPSHOT`.
-
-FIXME: Use this for project-level plugins:
-
-Put `[lein-jeff "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your project.clj.
+Put `[lein-mangoes "0.1.0"]` into the `:plugins` vector of your project.clj.
 
 FIXME: and add an example usage that actually makes sense:
 
