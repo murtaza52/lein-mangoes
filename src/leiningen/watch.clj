@@ -10,31 +10,45 @@
 
 (def empty-string "")
 
-(defn path-seq
+(defn get-path-seq
   [p]
-  (let [s (split p #"\\")]
-    (if (=  (first s) empty-string)
-      (cons "/" (rest s))
-      s)))
+  (split p #"/"))
+
+;; (defn get-path-seq
+;;   "Splits the path on /, and accounts for the case where its an absolute path."
+
+;; (defn get-path-seq
+;;   "Splits the path on /, and accounts for the case where its an absolute path."
+;;   [p]
+;;   (let [s (split p #"/")]
+;;     (if (=  (first s) emp;;   [p]
+;;   (let [s (split p #"/")]
+;;     (if (=  (first s) empty-string)
+;;       (cons "/" (rest s))
+;;       s)))
 
 (defn contains-folder
   [folder path]
-  (let [path-seq (split path #"/")
+  (let [path-seq (get-path-seq path)
         path-seq-without-file (butlast path-seq)
-        folder-seq (split folder #"/")
+        folder-seq (get-path-seq folder)
         possible-path-with-only-folder (take (count folder-seq) (reverse path-seq-without-file))]
     (every? (into #{} possible-path-with-only-folder) folder-seq)))
 
+
+;; .toAbsolutePath should return the path to the file. However in some instances it returns only the project path + file name. It doesnt include the folder name that is being observed. Thus it either returns the path if it already includes the folder name, or adds it to the returned path.
 (defn get-path
+  "Returns the path of the file which was modified."
   [path-object relative-folder-path]
   (let [abs-path (.toString (.toAbsolutePath path-object))
-        path-seq (split abs-path #"/")
+        path-seq (get-path-seq abs-path)
         path-seq-with-folder (concat (butlast path-seq) [relative-folder-path (last path-seq)])]
     (if (contains-folder relative-folder-path abs-path)
       abs-path
       (join "/" path-seq-with-folder))))
 
 (defn get-file-name
+  "Returns the name of the file which was modified, without the extension."
   [p]
   (let [name (-> p .getFileName .toString)
         name-split (split name #"\.")]
@@ -42,12 +56,12 @@
       (join "." (butlast name-split))
       (first name-split))))
 
-;; (defn file-path-with-name
-;;   [ev p]
-;;   (str (get-path (ev :path) p) (-> ev :path .getFileName .toString)))
-
 (defn watch-folder
+  "Watches a folder on path p for any changes, and applies fn f."
   [p f]
-  (let [path-object (apply nio2/path (path-seq p))]
+  (let [path-object (apply nio2/path (get-path-seq p))]
     (doseq [ev (apply watch-seq path-object events-to-watch)]
       (f (get-path (ev :path) p) (get-file-name (ev :path))))))
+
+(comment
+  (watch-folder "hiccup-template" println))

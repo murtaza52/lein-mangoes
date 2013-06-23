@@ -1,4 +1,4 @@
-(defproject lein-mangoes "0.2.0"
+(defproject lein-mangoes "0.2.1"
   :description "A build system for client side development."
   :url "https://github.com/murtaza52/lein-mangoes"
   :license {:name "Eclipse Public License"
