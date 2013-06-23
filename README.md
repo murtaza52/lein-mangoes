@@ -4,7 +4,7 @@ A build system for client side development.
 
 ## Usage
 
-Put `[lein-mangoes "0.2.0"]` into the `:plugins` vector of your project.clj.
+Put `[lein-mangoes "0.2.1"]` into the `:plugins` vector of your project.clj.
 
 As this is a development plugin, it can be included in the dev profile of the project.
 ```clojure
