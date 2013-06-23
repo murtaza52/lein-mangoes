@@ -17,12 +17,20 @@
       (cons "/" (rest s))
       s)))
 
+(defn contains-folder
+  [folder path]
+  (let [path-seq (split path #"/")
+        path-seq-without-file (butlast path-seq)
+        folder-seq (split folder #"/")
+        possible-path-with-only-folder (take (count folder-seq) (reverse path-seq-without-file))]
+    (every? (into #{} possible-path-with-only-folder) folder-seq)))
+
 (defn get-path
   [path-object relative-folder-path]
   (let [abs-path (.toString (.toAbsolutePath path-object))
         path-seq (split abs-path #"/")
         path-seq-with-folder (concat (butlast path-seq) [relative-folder-path (last path-seq)])]
-    (if (some (into #{} path-seq) (split relative-folder-path #"/"))
+    (if (contains-folder relative-folder-path abs-path)
       abs-path
       (join "/" path-seq-with-folder))))
 
