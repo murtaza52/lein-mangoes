@@ -1,6 +1,6 @@
 # lein-mangoes
 
-A build system for client ide development.
+A build system for client side development.
 
 ## Usage
 
@@ -9,22 +9,26 @@ This plugin is not yet avalaible on clojars. Thus please clone the repo, and run
 Put `[lein-mangoes "0.1.0"]` into the `:plugins` vector of your project.clj.
 
 As this is a development plugin, it can be included in the dev profile of the project.
+```clojure
     :profiles {:dev {:source-paths ["dev"]
                :plugins [[lein-mangoes "0.1.0"]]}}
+```
 
 A `:mangoes` key defines the different folders to watch and the action to take -
+```clojure
     :mangoes [[:hiccup->html "app/hiccup-templates" "app/templates"]
               [:html->hiccup "app/tmp" "app/hiccup-templates"]]
-
+```
 The watch can then be started using:
+```bash
     $ lein mangoes
-
+```
 ## Sample Usage
 
 1. Add the following key to project.clj to convert from hiccup to html -
-
+```clojure
     :mangoes [[:hiccup->html "hiccup-templates" "templates"]]
-
+```
 2. Create the folders `hiccup-templates` `templates` in your project.
 
 3. cd into the `hiccup-templates` folder.
@@ -51,7 +55,7 @@ Clojure is a powerful and expressive language, and just as its abilities can be 
 
 However what is missing is a seamless way to convert between hiccup and html, and vice versa. The lein-mangoes plugin provides this convenience. The idea is to be able to write html and CSS in clojure syntax, and have it compile to html and CSS instantaneously. This is similar to the SASS, LESS, HAML and Jade pre compilers.
 
-## Funtionality
+## Functionality
 
 It currently supports the following options -
 
