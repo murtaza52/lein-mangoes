@@ -19,6 +19,20 @@ A `:mangoes` key defines the different folders to watch and the action to take -
 The watch can then be started using:
     $ lein mangoes
 
+## Sample Usage
+
+1. Add the following key to project.clj to convert from hiccup to html -
+
+    :mangoes [[:hiccup->html "hiccup-templates" "templates"]]
+
+2. Create the folders `hiccup-templates` `templates` in your project.
+
+3. cd into the `hiccup-templates` folder.
+
+4. Create a hiccup file : `echo "[:a [:b]]" >> a.clj`
+
+5. This will produce a html file : `cat ../templates/a.html` >> `<a><b></b></a>`
+
 ## Configuration
 
 The configuration of the plugin is specified by using a sequence of vectors. Each vector has three entries -
@@ -62,7 +76,7 @@ One goal is (I do not know of the feasibility) to allow the usage of namespaced 
 
 ## Contributions
 
-This plugin is a very young library, and your comments, suggestions, ideas and pull requests will make a big difference !
+This plugin is a very young library, and your comments, suggestions, ideas, code reviews and pull requests will make a big difference !
 
 ## Credits
 
