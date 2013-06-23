@@ -24,9 +24,8 @@ The watch can then be started using:
 ## Sample Usage
 
 1. Add the following key to project.clj to convert from hiccup to html -
-```clojure
-    :mangoes [[:hiccup->html "hiccup-templates" "templates"]]
-```
+    `:mangoes [[:hiccup->html "hiccup-templates" "templates"]]`
+
 2. Create the folders `hiccup-templates` `templates` in your project.
 
 3. cd into the `hiccup-templates` folder.
