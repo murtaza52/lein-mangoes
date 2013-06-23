@@ -4,9 +4,7 @@ A build system for client side development.
 
 ## Usage
 
-This plugin is not yet avalaible on clojars. Thus please clone the repo, and run `lein install` from the folder.
-
-Put `[lein-mangoes "0.1.0"]` into the `:plugins` vector of your project.clj.
+Put `[lein-mangoes "0.2.0"]` into the `:plugins` vector of your project.clj.
 
 As this is a development plugin, it can be included in the dev profile of the project.
 ```clojure
