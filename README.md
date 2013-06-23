@@ -46,7 +46,7 @@ The input directories should already exist before `lein mangoes` is run. The plu
 
 ## Rationale
 
-This plugin is a convenience utility to ease client side development using clojure technoligies. There are excellent clojure libraries, which enable writing html and CSS in clojure syntax. However these libraries have to be called from repl to generate the corresponding html and CSS code.
+This plugin is a convenience utility to ease client side development using clojure technoligies. There are excellent clojure libraries, which enable writing html and CSS in clojure syntax. However these libraries have to be called from repl to generate the corresponding html and CSS code. This plugin provides a continous compilation between the corresponding clojure syntax and the resulting CSS/HTML syntax.
 
 Clojure is a powerful and expressive language, and just as its abilities can be leveraged for javascript development (via clojurescript), so it can be for html and CSS (via hiccup and garden). This workflow works well where the developers are also working on CSS and HTML. Thus it makes sense to use one language for all the needs.
 
